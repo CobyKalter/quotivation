@@ -9,6 +9,8 @@ function App() {
   const [quotes, setQuotes] = useState([]);
   const [loading, setLoading] = useState(false);
   const [category, setCategory] = useState("All");
+  const [favoriteQuotes, setFavoriteQuotes] = useState([]);
+  const maxFaves = 3; 
 
   const quotesUrl =
     "https://gist.githubusercontent.com/skillcrush-curriculum/6365d193df80174943f6664c7c6dbadf/raw/1f1e06df2f4fc3c2ef4c30a3a4010149f270c0e0/quotes.js";
@@ -37,12 +39,37 @@ function App() {
 
   const filteredQuotes = category !== "All" ? quotes.filter((quote) => quote.categories.includes(category)) : quotes;
   
+  const addToFavorites = (quoteId) => {
+    const selectedQuote = quotes.find((quote) => quote.id === quoteId);
+    const alreadyFavorite = favoriteQuotes.find((favorite) => favorite.id === selectedQuote.id);
+    //console.log(selectedQuote);//
+    if (alreadyFavorite) {
+      console.log("Quote is already in your favorites! Choose another.");
+    } else if (favoriteQuotes.length < maxFaves) { 
+      setFavoriteQuotes([...favoriteQuotes, selectedQuote]);
+      console.log("Added to favorites"); 
+    } else {
+      console.log("Max number of Favorite Quotes reached. Please delete one to add another!");
+    }
+  };
 
   return (
     <div className='App'>
       <Header />
       <main>
-        {loading ? <Loader /> : <Quotes filteredQuotes={filteredQuotes} category={category} categories={categories} handleCategoryChange={handleCategoryChange}/>}
+        <section className="favorite-quotes">
+          <div className="wrapper quotes">
+            <h3>Top 3 Favorite Quotes</h3>
+            {favoriteQuotes.length >= 1 && JSON.stringify(favoriteQuotes)}
+            <div className="favorite-quotes-description">
+              <p>
+              You can add up to three favorites by selecting from the options below. 
+              <br /> Once you choose, they will appear here.
+              </p>
+            </div>
+          </div>
+        </section>
+        {loading ? <Loader /> : <Quotes filteredQuotes={filteredQuotes} category={category} categories={categories} handleCategoryChange={handleCategoryChange} addToFavorites={addToFavorites}/>}
       </main>
       <Footer />
     </div>
