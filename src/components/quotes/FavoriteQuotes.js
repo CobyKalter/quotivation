@@ -14,7 +14,7 @@ function FavoriteQuotes({ favoriteQuotes, maxFaves, removeFromFavorites }) {
             </ul>}
             <div className="favorite-quotes-description">
               <p>
-              You can add {maxFaves - favoriteQuotes.length} more quotes to your top three favorites by selecting from the options below. 
+              {favoriteQuotes.length < maxFaves ? `You can add ${maxFaves - favoriteQuotes.length} more quotes to your top three favorites by selecting from the options below.`: ""}  
               </p>
             </div>
           </div>
