@@ -76,7 +76,7 @@ function App() {
 
   return (
     <div className='App'>
-      {showMessage ? <Message messageText={messageText} removeMessage={removeMessage} /> : ""}
+      {showMessage ? <Message messageText={messageText} setMessageText={setMessageText} removeMessage={removeMessage} showMessage={showMessage} setShowMessage={setShowMessage}/> : ""}
       <Header />
       <main>
         <FavoriteQuotes favoriteQuotes={favoriteQuotes} maxFaves={maxFaves} removeFromFavorites={removeFromFavorites}/>
