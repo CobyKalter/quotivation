@@ -1,14 +1,14 @@
 import React from "react";
 import { useEffect } from "react";
 
-function Message({ messageText, removeMessage, showMessage, setShowMessage }) {
+function Message({ messageText, removeMessage }) {
 
     useEffect(() => {
         const clearMessage = setTimeout(() => {
-            setShowMessage(false);
+            removeMessage();
         }, 1500);
-        return () => clearTimeout(showMessage);
-    }, [showMessage]);
+        return () => clearTimeout(clearMessage);
+    }, []);
 
     return (
         <div className="message">
